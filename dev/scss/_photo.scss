@@ -1,0 +1,29 @@
+.photo {
+  .carousel-bg {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(253, 163, 64, 0.8);
+  }
+  .carousel-bg > h5 {
+    text-align: left;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    text-transform: none;
+    font-size: 18px;
+  }
+
+  .carousel-bg > p {
+    text-align: left;
+    margin-left: 10px;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  @media (max-width: 500px) {
+    .carousel-control-next {
+      right: 0;
+    }
+    .carousel-control-prev {
+      left: 0;
+    }
+  }
+}

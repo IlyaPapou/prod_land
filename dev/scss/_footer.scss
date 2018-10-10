@@ -1,0 +1,17 @@
+.footer {
+  background-color: $primary;
+  padding-bottom:20px;
+
+  .img {
+    display: flex;
+    img {
+      width: 95px;
+    }
+  }
+
+  .footer-text {
+    text-align: right;
+    font-size: 14px;
+    padding-top: 20px;
+  }
+}

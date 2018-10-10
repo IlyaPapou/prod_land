@@ -1,0 +1,106 @@
+@import "reset";
+@import "fonts";
+
+$white: #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #868e96 !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black: #000 !default;
+$primary: #fda340 !default;
+$color-bg: #fcfcf4;
+$color-dark: darken($primary, 10%);
+$color-lite: lighten($primary, 10%);
+
+@mixin position-center {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  margin: auto;
+}
+
+@import "preloader";
+@import "navbar";
+
+section {
+  padding: 150px 0;
+  .container {
+    margin: auto;
+  }
+}
+
+.video {
+  z-index: 10;
+}
+
+.fixed {
+  position: fixed;
+  top: 0;
+  transition: all 0.3s;
+}
+
+.padding-hover {
+  padding: 25px;
+}
+
+.padding-unhover {
+  padding: 25px 25px 25px 0;
+}
+
+.carousel-control-next {
+  right: -90px;
+}
+
+.carousel-control-prev {
+  left: -90px
+}
+
+.carousel-control-next, .carousel-control-prev {
+  opacity: 0.6;
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.carousel-control-prev-icon {
+  background-image: url('../img/portfolio/rectangle.svg');
+}
+
+.carousel-control-next-icon {
+  background-image: url('../img/portfolio/rectangle-reverse.svg');
+}
+
+.text-head {
+  text-transform: uppercase;
+  font-family: Proxima Nova Bold, serif;
+  color: $black;
+  line-height: 1;
+  letter-spacing: 1.2px;
+}
+
+.text-body {
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.2;
+  letter-spacing: 1px;
+  font-family: Proxima Nova Regular, sans-serif;
+  color: $black;
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: 100px 0;
+  }
+}
+
+@import "portfolio";
+@import "photo";
+@import "info";
+@import "footer";

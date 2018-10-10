@@ -1,0 +1,48 @@
+.preloader {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  z-index: 99;
+  transition: 1s all;
+  opacity: 1;
+  visibility: visible;
+
+  .preloader-loader {
+    width: 90px;
+    height: 90px;
+    border: 10px solid whitesmoke;
+    border-radius: 50%;
+    border-top-color: $primary;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    animation: spin 1s infinite ease;
+  }
+
+  .preloader-percent {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #cdcdcd;
+    font-family: "Proxima Nova Regular", serif;
+  }
+
+  &.done {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
