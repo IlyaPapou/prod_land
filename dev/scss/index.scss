@@ -1,5 +1,5 @@
-@import "reset";
-@import "fonts";
+@import 'reset';
+@import 'fonts';
 
 $white: #fff !default;
 $gray-100: #f8f9fa !default;
@@ -19,12 +19,15 @@ $color-lite: lighten($primary, 10%);
 
 @mixin position-center {
   position: absolute;
-  top: 0; right: 0; bottom: 0; left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   margin: auto;
 }
 
-@import "preloader";
-@import "navbar";
+@import 'preloader';
+@import 'navbar';
 
 section {
   padding: 150px 0;
@@ -56,14 +59,16 @@ section {
 }
 
 .carousel-control-prev {
-  left: -90px
+  left: -90px;
 }
 
-.carousel-control-next, .carousel-control-prev {
+.carousel-control-next,
+.carousel-control-prev {
   opacity: 0.6;
 }
 
-.carousel-control-prev-icon, .carousel-control-next-icon {
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
   width: 30px;
   height: 30px;
 }
@@ -100,7 +105,8 @@ section {
   }
 }
 
-@import "portfolio";
-@import "photo";
-@import "info";
-@import "footer";
+@import 'portfolio';
+@import 'photo';
+@import 'info';
+@import 'footer';
+@import 'unite-gallery';

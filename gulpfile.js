@@ -21,7 +21,7 @@ gulp.task('scss', () =>
 gulp.task('js', () =>
   gulp
     .src('./dev/js/**/*.js')
-    // .pipe(concat('index.js'))
+    .pipe(concat('index.js'))
     .pipe(uglify('index.js'))
     .pipe(gulp.dest('./public/js'))
 );

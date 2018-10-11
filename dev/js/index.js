@@ -1,17 +1,26 @@
-var body = document.getElementById("body");
-body.style.overflow = "hidden";
+var body = document.getElementById('body');
+body.style.overflow = 'hidden';
 
-var preloader = document.getElementById("preloader"),
-  preloader_percent = document.getElementById("preloader-percent"),
-  video_header = document.getElementById("video-header"),
-  photo_video2 = document.getElementById("photo-video"),
-  photo_video = $("#photo-video"),
+var preloader = document.getElementById('preloader'),
+  preloader_percent = document.getElementById('preloader-percent'),
+  video_header = document.getElementById('video-header'),
+  photo_video2 = document.getElementById('photo-video'),
+  photo_video = $('#photo-video'),
   images = document.images,
   images_total_count = images.length,
   images_loaded_count = 0,
   image_clone,
   scrollIndex = 0,
-  i, navbarDefTop, navbar, toPort, toPort2, toPhoto, toInfo, scrollToPhoto_videoPos, winHeight, photo_videoPos,
+  i,
+  navbarDefTop,
+  navbar,
+  toPort,
+  toPort2,
+  toPhoto,
+  toInfo,
+  scrollToPhoto_videoPos,
+  winHeight,
+  photo_videoPos,
   count = 0;
 
 // counting percentage for loading screen
@@ -24,29 +33,37 @@ for (i = 0; i < images_total_count; i++) {
 
 function image_loaded() {
   images_loaded_count++;
-  preloader_percent.innerHTML = (((100 / images_total_count) * images_loaded_count) << 0);
+  preloader_percent.innerHTML =
+    ((100 / images_total_count) * images_loaded_count) << 0;
   if (images_loaded_count >= images_total_count) {
     setTimeout(function() {
       // deleting preloader
-      if (!preloader.classList.contains("done")) {
-        preloader.classList.add("done");
-        body.style.overflow = "";
-        document.getElementById("preloader").remove();
+      if (!preloader.classList.contains('done')) {
+        preloader.classList.add('done');
+        body.style.overflow = '';
+        document.getElementById('preloader').remove();
       }
 
+      // init gallery
+      jQuery('#gallery').unitegallery();
+
       // menu toggle
-      $("button").on("click", function() {
-        $("body").toggleClass("open");
+      $('button').on('click', function() {
+        $('body').toggleClass('open');
       });
 
       // behavior for header video
-      video_header.addEventListener("ended", myHandler, false);
+      video_header.addEventListener('ended', myHandler, false);
 
       function myHandler(e) {
         if (scrollIndex === 0) {
-          $("html,body").animate({
-            scrollTop: $("#portfolio").offset().top
-          }, 1000, "swing");
+          $('html,body').animate(
+            {
+              scrollTop: $('#portfolio').offset().top
+            },
+            1000,
+            'swing'
+          );
         }
       }
 
@@ -55,8 +72,7 @@ function image_loaded() {
         video_header.loop = true;
         if ($(window).scrollTop() === 0) {
           video_header.play();
-        }
-        else {
+        } else {
           video_header.pause();
         }
       });
@@ -66,13 +82,17 @@ function image_loaded() {
       winHeight = $(window).height();
       scrollToPhoto_videoPos = photo_videoPos - winHeight;
 
-      photo_video2.addEventListener("ended", myHandler2, false);
+      photo_video2.addEventListener('ended', myHandler2, false);
 
       function myHandler2(e) {
         if (count === 1) {
-          $("html,body").animate({
-            scrollTop: $("#portfolio2").offset().top
-          }, 1000, "swing");
+          $('html,body').animate(
+            {
+              scrollTop: $('#portfolio2').offset().top
+            },
+            1000,
+            'swing'
+          );
           count = 2;
         }
       }
@@ -80,63 +100,99 @@ function image_loaded() {
       $(window).scroll(function() {
         var winScrollTop = $(this).scrollTop();
         if (winScrollTop > scrollToPhoto_videoPos && count === 0) {
-          $("html,body").animate({
-            scrollTop: $("#photo-video").offset().top
-          }, 1000, "swing");
+          $('html,body').animate(
+            {
+              scrollTop: $('#photo-video').offset().top
+            },
+            1000,
+            'swing'
+          );
           count = 1;
         }
       });
 
       // adding fixed position for navbar
-      navbar = $(".navbar");
+      navbar = $('.navbar');
       navbarDefTop = navbar.offset().top;
-      $(window).on("scroll", function() {
-        if (navbarDefTop - ($("body").scrollTop() || $("html").scrollTop()) <= 0) {
-          navbar.addClass("fixed");
+      $(window).on('scroll', function() {
+        if (
+          navbarDefTop - ($('body').scrollTop() || $('html').scrollTop()) <=
+          0
+        ) {
+          navbar.addClass('fixed');
         }
       });
 
       // animation for scrolling to position on click from menu
-      toPort = document.getElementById("toPort");
-      toPort.addEventListener("click", function() {
-        scroll("#portfolio");
-      }, false);
+      toPort = document.getElementById('toPort');
+      toPort.addEventListener(
+        'click',
+        function() {
+          scroll('#portfolio');
+        },
+        false
+      );
 
-      toPort2 = document.getElementById("toPort2");
-      toPort2.addEventListener("click", function() {
-        scroll("#portfolio2");
-      }, false);
+      toPort2 = document.getElementById('toPort2');
+      toPort2.addEventListener(
+        'click',
+        function() {
+          scroll('#portfolio2');
+        },
+        false
+      );
 
-      toPhoto = document.getElementById("toPhoto");
-      toPhoto.addEventListener("click", function() {
-        scroll("#photo");
-      }, false);
+      toPhoto = document.getElementById('toPhoto');
+      toPhoto.addEventListener(
+        'click',
+        function() {
+          scroll('#photo');
+        },
+        false
+      );
 
-      toInfo = document.getElementById("toInfo");
-      toInfo.addEventListener("click", function() {
-        scroll("#info");
-      }, false);
+      toInfo = document.getElementById('toInfo');
+      toInfo.addEventListener(
+        'click',
+        function() {
+          scroll('#info');
+        },
+        false
+      );
 
       function scroll(param) {
-        $("body").toggleClass("open");
-        $("html,body").animate({
-          scrollTop: $(param).offset().top
-        }, 1000, "swing");
+        $('body').toggleClass('open');
+        $('html,body').animate(
+          {
+            scrollTop: $(param).offset().top
+          },
+          1000,
+          'swing'
+        );
       }
 
       // disable carousel auto movement
-      $(".carousel").each(function() {
+      $('.carousel').each(function() {
         $(this).carousel({
           interval: false
         });
       });
 
       // animation for portfolio items
-      $("a.portfolio-link").hover(function() {
-        $(this).children().last().animate({ padding: "25px" });
-      }, function() {
-        $(this).children().last().animate({ padding: "25px 25px 25px 0" });
-      });
+      $('a.portfolio-link').hover(
+        function() {
+          $(this)
+            .children()
+            .last()
+            .animate({ padding: '25px' });
+        },
+        function() {
+          $(this)
+            .children()
+            .last()
+            .animate({ padding: '25px 25px 25px 0' });
+        }
+      );
     }, 500);
   }
 }
