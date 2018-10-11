@@ -12,7 +12,7 @@ $gray-700: #495057 !default;
 $gray-800: #343a40 !default;
 $gray-900: #212529 !default;
 $black: #000 !default;
-$primary: #fda340 !default;
+$primary: rgb(253, 163, 64) !default;
 $color-bg: #fcfcf4;
 $color-dark: darken($primary, 10%);
 $color-lite: lighten($primary, 10%);
@@ -24,6 +24,16 @@ $color-lite: lighten($primary, 10%);
   bottom: 0;
   left: 0;
   margin: auto;
+}
+
+::-moz-selection {
+  background: rgb(253, 189, 120);
+  text-shadow: none;
+}
+
+::selection {
+  background: rgb(253, 189, 120);
+  text-shadow: none;
 }
 
 @import 'preloader';
