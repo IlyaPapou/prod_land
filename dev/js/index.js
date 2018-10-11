@@ -1,97 +1,97 @@
-var body = document.getElementById('body');
-body.style.overflow = 'hidden';
+var body = document.getElementById("body");
+body.style.overflow = "hidden";
 
-var preloader = document.getElementById('preloader'),
-  preloader_percent = document.getElementById('preloader-percent'),
-  video_header = document.getElementById('video-header'),
-  photo_video2 = document.getElementById('photo-video'),
-  photo_video = $('#photo-video'),
+var preloader = document.getElementById("preloader"),
+  preloaderPercent = document.getElementById("preloader-percent"),
+  videoHeader = document.getElementById("video-header"),
+  videoPhotoById = document.getElementById("photo-video"),
+  videoPhoto = $("#photo-video"),
   images = document.images,
-  images_total_count = images.length,
-  images_loaded_count = 0,
-  image_clone,
+  imagesTotalCount = images.length,
+  imagesLoadedCount = 0,
+  imageClone,
   scrollIndex = 0,
   i,
-  navbarDefTop,
-  navbar,
+  navbarOffsetTop,
+  navbar = $(".navbar"),
   toPort,
   toPort2,
   toPhoto,
   toInfo,
-  scrollToPhoto_videoPos,
+  videoPhotoPosition,
+  scrollToVideoPhotoPosition,
   winHeight,
-  photo_videoPos,
   count = 0;
 
 // counting percentage for loading screen
-for (i = 0; i < images_total_count; i++) {
-  image_clone = new Image();
-  image_clone.onload = image_loaded;
-  image_clone.onerror = image_loaded;
-  image_clone.src = images[i].src;
+for (i = 0; i < imagesTotalCount; i++) {
+  imageClone = new Image();
+  imageClone.onload = image_loaded;
+  imageClone.onerror = image_loaded;
+  imageClone.src = images[i].src;
 }
 
 function image_loaded() {
-  images_loaded_count++;
-  preloader_percent.innerHTML =
-    ((100 / images_total_count) * images_loaded_count) << 0;
-  if (images_loaded_count >= images_total_count) {
+  imagesLoadedCount++;
+  preloaderPercent.innerHTML =
+    ((100 / imagesTotalCount) * imagesLoadedCount) << 0;
+  if (imagesLoadedCount >= imagesTotalCount) {
     setTimeout(function() {
       // deleting preloader
-      if (!preloader.classList.contains('done')) {
-        preloader.classList.add('done');
-        body.style.overflow = '';
-        document.getElementById('preloader').remove();
+      if (!preloader.classList.contains("done")) {
+        preloader.classList.add("done");
+        body.style.overflow = "";
+        document.getElementById("preloader").remove();
       }
 
       // init gallery
-      jQuery('#gallery').unitegallery();
+      jQuery("#gallery").unitegallery();
 
       // menu toggle
-      $('button').on('click', function() {
-        $('body').toggleClass('open');
+      $("button").on("click", function() {
+        $("body").toggleClass("open");
       });
 
       // behavior for header video
-      video_header.addEventListener('ended', myHandler, false);
+      videoHeader.addEventListener("ended", myHandler, false);
 
       function myHandler(e) {
         if (scrollIndex === 0) {
-          $('html,body').animate(
+          $("html,body").animate(
             {
-              scrollTop: $('#portfolio').offset().top
+              scrollTop: $("#portfolio").offset().top
             },
             1000,
-            'swing'
+            "swing"
           );
         }
       }
 
       $(document).scroll(function() {
         scrollIndex = 1;
-        video_header.loop = true;
+        videoHeader.loop = true;
         if ($(window).scrollTop() === 0) {
-          video_header.play();
+          videoHeader.play();
         } else {
-          video_header.pause();
+          videoHeader.pause();
         }
       });
 
       // behavior for photo video
-      photo_videoPos = photo_video.offset().top;
+      videoPhotoPosition = videoPhoto.offset().top;
       winHeight = $(window).height();
-      scrollToPhoto_videoPos = photo_videoPos - winHeight;
+      scrollToVideoPhotoPosition = videoPhotoPosition - winHeight;
 
-      photo_video2.addEventListener('ended', myHandler2, false);
+      videoPhotoById.addEventListener("ended", myHandler2, false);
 
       function myHandler2(e) {
         if (count === 1) {
-          $('html,body').animate(
+          $("html,body").animate(
             {
-              scrollTop: $('#portfolio2').offset().top
+              scrollTop: $("#portfolio2").offset().top
             },
             1000,
-            'swing'
+            "swing"
           );
           count = 2;
         }
@@ -99,98 +99,101 @@ function image_loaded() {
 
       $(window).scroll(function() {
         var winScrollTop = $(this).scrollTop();
-        if (winScrollTop > scrollToPhoto_videoPos && count === 0) {
-          $('html,body').animate(
+        if (winScrollTop > scrollToVideoPhotoPosition && count === 0) {
+          $("html,body").animate(
             {
-              scrollTop: $('#photo-video').offset().top
+              scrollTop: $("#photo-video").offset().top
             },
             1000,
-            'swing'
+            "swing"
           );
           count = 1;
         }
       });
 
       // adding fixed position for navbar
-      navbar = $('.navbar');
-      navbarDefTop = navbar.offset().top;
-      $(window).on('scroll', function() {
-        if (
-          navbarDefTop - ($('body').scrollTop() || $('html').scrollTop()) <=
-          0
-        ) {
-          navbar.addClass('fixed');
+      navbarOffsetTop = navbar.offset().top;
+      $(window).on("scroll", function() {
+        if (navbarOffsetTop - ($("body").scrollTop() || $("html").scrollTop()) <= 0) {
+          navbar.addClass("fixed");
         }
       });
-
+///////////////////
+      var videoPhotoOffsetTop = videoPhoto.offset().top;
+      $(window).on("scroll", function() {
+        if (videoPhotoOffsetTop - ($("body").scrollTop() || $("html").scrollTop()) <= 0) {
+          document.getElementById("navbar-header").innerText = "Photo";
+        }
+      });
+////////////////////
       // animation for scrolling to position on click from menu
-      toPort = document.getElementById('toPort');
+      toPort = document.getElementById("toPort");
       toPort.addEventListener(
-        'click',
+        "click",
         function() {
-          scroll('#portfolio');
+          scroll("#portfolio");
         },
         false
       );
 
-      toPort2 = document.getElementById('toPort2');
+      toPort2 = document.getElementById("toPort2");
       toPort2.addEventListener(
-        'click',
+        "click",
         function() {
-          scroll('#portfolio2');
+          scroll("#portfolio2");
         },
         false
       );
 
-      toPhoto = document.getElementById('toPhoto');
+      toPhoto = document.getElementById("toPhoto");
       toPhoto.addEventListener(
-        'click',
+        "click",
         function() {
-          scroll('#photo');
+          scroll("#photo");
         },
         false
       );
 
-      toInfo = document.getElementById('toInfo');
+      toInfo = document.getElementById("toInfo");
       toInfo.addEventListener(
-        'click',
+        "click",
         function() {
-          scroll('#info');
+          scroll("#info");
         },
         false
       );
 
       function scroll(param) {
-        $('body').toggleClass('open');
-        $('html,body').animate(
+        $("body").toggleClass("open");
+        $("html,body").animate(
           {
             scrollTop: $(param).offset().top
           },
           1000,
-          'swing'
+          "swing"
         );
       }
 
       // disable carousel auto movement
-      $('.carousel').each(function() {
+      $(".carousel").each(function() {
         $(this).carousel({
           interval: false
         });
       });
 
       // animation for portfolio items
-      $('a.portfolio-link').hover(
+      $("a.portfolio-link").hover(
         function() {
           $(this)
             .children()
             .last()
-            .animate({ padding: '25px' });
+            .animate({ padding: "25px" });
         },
         function() {
           $(this)
             .children()
             .last()
-            .animate({ padding: '25px 25px 25px 0' });
+            .animate({ padding: "25px 25px 25px 0" });
         }
       );
     }, 500);
