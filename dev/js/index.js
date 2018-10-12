@@ -1,11 +1,12 @@
-var body = document.getElementById("body");
-body.style.overflow = "hidden";
+var body = document.getElementById('body');
+body.style.overflow = 'hidden';
 
-var preloader = document.getElementById("preloader"),
-  preloaderPercent = document.getElementById("preloader-percent"),
-  videoHeader = document.getElementById("video-header"),
-  videoPhotoById = document.getElementById("photo-video"),
-  videoPhoto = $("#photo-video"),
+var preloader = document.getElementById('preloader'),
+  preloaderPercent = document.getElementById('preloader-percent'),
+  videoHeader = document.getElementById('video-header'),
+  videoPhotoById = document.getElementById('photo-video'),
+  videoPhoto = $('#photo-video'),
+  winScrollTop = $(window).scrollTop(),
   images = document.images,
   imagesTotalCount = images.length,
   imagesLoadedCount = 0,
@@ -13,7 +14,7 @@ var preloader = document.getElementById("preloader"),
   scrollIndex = 0,
   i,
   navbarOffsetTop,
-  navbar = $(".navbar"),
+  navbar = $('.navbar'),
   toPort,
   toPort2,
   toPhoto,
@@ -38,31 +39,31 @@ function image_loaded() {
   if (imagesLoadedCount >= imagesTotalCount) {
     setTimeout(function() {
       // deleting preloader
-      if (!preloader.classList.contains("done")) {
-        preloader.classList.add("done");
-        body.style.overflow = "";
-        document.getElementById("preloader").remove();
+      if (!preloader.classList.contains('done')) {
+        preloader.classList.add('done');
+        body.style.overflow = '';
+        document.getElementById('preloader').remove();
       }
 
       // init gallery
-      jQuery("#gallery").unitegallery();
+      jQuery('#gallery').unitegallery();
 
       // menu toggle
-      $("button").on("click", function() {
-        $("body").toggleClass("open");
+      $('button').on('click', function() {
+        $('body').toggleClass('open');
       });
 
       // behavior for header video
-      videoHeader.addEventListener("ended", myHandler, false);
+      videoHeader.addEventListener('ended', myHandler, false);
 
       function myHandler(e) {
         if (scrollIndex === 0) {
-          $("html,body").animate(
+          $('html,body').animate(
             {
-              scrollTop: $("#portfolio").offset().top
+              scrollTop: $('#portfolio').offset().top
             },
             1000,
-            "swing"
+            'swing'
           );
         }
       }
@@ -70,10 +71,33 @@ function image_loaded() {
       $(document).scroll(function() {
         scrollIndex = 1;
         videoHeader.loop = true;
-        if ($(window).scrollTop() === 0) {
+        if (winScrollTop === 0) {
           videoHeader.play();
         } else {
           videoHeader.pause();
+        }
+        if (winScrollTop > scrollToVideoPhotoPosition && count === 0) {
+          $('html,body').animate(
+            {
+              scrollTop: $('#photo-video').offset().top
+            },
+            1000,
+            'swing'
+          );
+          count = 1;
+        }
+      });
+
+      $(document).scroll(function() {
+        if (winScrollTop > scrollToVideoPhotoPosition && count === 0) {
+          $('html,body').animate(
+            {
+              scrollTop: $('#photo-video').offset().top
+            },
+            1000,
+            'swing'
+          );
+          count = 1;
         }
       });
 
@@ -82,118 +106,111 @@ function image_loaded() {
       winHeight = $(window).height();
       scrollToVideoPhotoPosition = videoPhotoPosition - winHeight;
 
-      videoPhotoById.addEventListener("ended", myHandler2, false);
+      videoPhotoById.addEventListener('ended', myHandler2, false);
 
       function myHandler2(e) {
         if (count === 1) {
-          $("html,body").animate(
+          $('html,body').animate(
             {
-              scrollTop: $("#portfolio2").offset().top
+              scrollTop: $('#portfolio2').offset().top
             },
             1000,
-            "swing"
+            'swing'
           );
           count = 2;
         }
       }
 
-      $(window).scroll(function() {
-        var winScrollTop = $(this).scrollTop();
-        if (winScrollTop > scrollToVideoPhotoPosition && count === 0) {
-          $("html,body").animate(
-            {
-              scrollTop: $("#photo-video").offset().top
-            },
-            1000,
-            "swing"
-          );
-          count = 1;
-        }
-      });
-
       // adding fixed position for navbar
       navbarOffsetTop = navbar.offset().top;
-      $(window).on("scroll", function() {
-        if (navbarOffsetTop - ($("body").scrollTop() || $("html").scrollTop()) <= 0) {
-          navbar.addClass("fixed");
+      $(window).on('scroll', function() {
+        if (
+          navbarOffsetTop - ($('body').scrollTop() || $('html').scrollTop()) <=
+          0
+        ) {
+          navbar.addClass('fixed');
         }
       });
-///////////////////
+      ///////////////////
       var videoPhotoOffsetTop = videoPhoto.offset().top;
-      $(window).on("scroll", function() {
-        if (videoPhotoOffsetTop - ($("body").scrollTop() || $("html").scrollTop()) <= 0) {
-          document.getElementById("navbar-header").innerText = "Photo";
+      $(window).on('scroll', function() {
+        if (
+          videoPhotoOffsetTop -
+            ($('body').scrollTop() || $('html').scrollTop()) <=
+          0
+        ) {
+          document.getElementById('navbar-header').innerText = 'Photo';
         }
       });
-////////////////////
+      ////////////////////
       // animation for scrolling to position on click from menu
-      toPort = document.getElementById("toPort");
+      toPort = document.getElementById('toPort');
       toPort.addEventListener(
-        "click",
+        'click',
         function() {
-          scroll("#portfolio");
+          scroll('#portfolio');
         },
         false
       );
 
-      toPort2 = document.getElementById("toPort2");
+      toPort2 = document.getElementById('toPort2');
       toPort2.addEventListener(
-        "click",
+        'click',
         function() {
-          scroll("#portfolio2");
+          scroll('#portfolio2');
         },
         false
       );
 
-      toPhoto = document.getElementById("toPhoto");
+      toPhoto = document.getElementById('toPhoto');
       toPhoto.addEventListener(
-        "click",
+        'click',
         function() {
-          scroll("#photo");
+          scroll('#photo');
         },
         false
       );
 
-      toInfo = document.getElementById("toInfo");
+      toInfo = document.getElementById('toInfo');
       toInfo.addEventListener(
-        "click",
+        'click',
         function() {
-          scroll("#info");
+          scroll('#info');
         },
         false
       );
 
       function scroll(param) {
-        $("body").toggleClass("open");
-        $("html,body").animate(
+        $('body').toggleClass('open');
+        $('html,body').animate(
           {
             scrollTop: $(param).offset().top
           },
           1000,
-          "swing"
+          'swing'
         );
       }
 
       // disable carousel auto movement
-      $(".carousel").each(function() {
+      $('.carousel').each(function() {
         $(this).carousel({
           interval: false
         });
       });
 
       // animation for portfolio items
-      $("a.portfolio-link").hover(
+      $('a.portfolio-link').hover(
         function() {
           $(this)
             .children()
             .last()
-            .animate({ padding: "25px" });
+            .animate({ padding: '25px' });
         },
         function() {
           $(this)
             .children()
             .last()
-            .animate({ padding: "25px 25px 25px 0" });
+            .animate({ padding: '25px 25px 25px 0' });
         }
       );
     }, 500);

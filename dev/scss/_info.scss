@@ -22,6 +22,8 @@
   .info-social>img {
     width: 30px;
     cursor: pointer;
+    -webkit-transition: 80ms linear 80ms;
+    transition: 80ms linear 80ms;
   }
 
   .info-social>img:hover {
@@ -41,14 +43,11 @@
   
   @media (max-width: 769px) {
     .info-social {
-      display: flex;
-      align-items: flex-start;
       justify-content: left;
     }
 
     .info-social>img {
       width: 70px;
-      padding-right: 15px;
     }
   }
 }
