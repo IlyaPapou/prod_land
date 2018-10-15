@@ -13,8 +13,10 @@
     toInfo = document.getElementById("toInfo"),
     videoAnim = $("#video-anim"),
     videoPhoto = $("#video-photo"),
+    info = $("#info"),
     videoAnimOffsetTop = videoAnim.offset().top,
     videoPhotoOffsetTop = videoPhoto.offset().top,
+    infoOffsetTop = info.offset().top,
     scrollToAnimPosition = videoAnimOffsetTop - $(window).height(),
     scrollToPhotoPosition = videoPhotoOffsetTop - $(window).height(),
     navbar = $(".navbar"),
@@ -82,8 +84,15 @@
             countForPhoto = 1;
           }
 
-          if (videoAnimOffsetTop - thisScrollTop < 0) {
+          if (videoPhotoOffsetTop > thisScrollTop && thisScrollTop > videoAnimOffsetTop) {
             document.getElementById("navbar-header").innerText = "Animation";
+          }
+          if (infoOffsetTop > thisScrollTop && thisScrollTop > videoPhotoOffsetTop > 0) {
+            document.getElementById("navbar-header").innerText = "Photo";
+          }
+
+          if (infoOffsetTop < thisScrollTop) {
+            document.getElementById("navbar-header").innerText = "Info";
           }
 
           if (navbarOffsetTop - thisScrollTop < 0) {
