@@ -7,6 +7,7 @@
     videoHeaderById = document.getElementById("video-header"),
     videoPhotoById = document.getElementById("video-photo"),
     videoAnimById = document.getElementById("video-anim"),
+    navbarHeaderById = document.getElementById("navbar-header"),
     toPort = document.getElementById("toPort"),
     toPort2 = document.getElementById("toPort2"),
     toPhoto = document.getElementById("toPhoto"),
@@ -14,13 +15,13 @@
     videoAnim = $("#video-anim"),
     videoPhoto = $("#video-photo"),
     info = $("#info"),
+    navbar = $(".navbar"),
     videoAnimOffsetTop = videoAnim.offset().top,
     videoPhotoOffsetTop = videoPhoto.offset().top,
     infoOffsetTop = info.offset().top,
+    navbarOffsetTop = navbar.offset().top,
     scrollToAnimPosition = videoAnimOffsetTop - $(window).height(),
     scrollToPhotoPosition = videoPhotoOffsetTop - $(window).height(),
-    navbar = $(".navbar"),
-    navbarOffsetTop = navbar.offset().top,
     images = document.images,
     imagesTotalCount = images.length,
     countForAnim = 0,
@@ -58,6 +59,12 @@
           $("body").toggleClass("open");
         });
 
+        // init gallery
+        jQuery("#gallery").unitegallery();
+
+        console.log($("#last").offsetTop);
+        console.log(infoOffsetTop);
+
         // on scroll actions
         $(document).scroll(function() {
           thisScrollTop = $(this).scrollTop();
@@ -84,15 +91,19 @@
             countForPhoto = 1;
           }
 
-          if (videoPhotoOffsetTop > thisScrollTop && thisScrollTop > videoAnimOffsetTop) {
-            document.getElementById("navbar-header").innerText = "Animation";
+          if (videoAnimOffsetTop > thisScrollTop) {
+            navbarHeaderById.innerText = "Video";
           }
-          if (infoOffsetTop > thisScrollTop && thisScrollTop > videoPhotoOffsetTop > 0) {
-            document.getElementById("navbar-header").innerText = "Photo";
+
+          if (videoPhotoOffsetTop > thisScrollTop && thisScrollTop > videoAnimOffsetTop) {
+            navbarHeaderById.innerText = "Animation";
+          }
+          if (infoOffsetTop > thisScrollTop && thisScrollTop > videoPhotoOffsetTop) {
+            navbarHeaderById.innerText = "Photo";
           }
 
           if (infoOffsetTop < thisScrollTop) {
-            document.getElementById("navbar-header").innerText = "Info";
+            navbarHeaderById.innerText = "Info";
           }
 
           if (navbarOffsetTop - thisScrollTop < 0) {
@@ -146,26 +157,6 @@
             countForPhoto = 2;
           }
         }
-
-        // videoPhotoPosition = videoPhoto.offset().top;
-        // winHeight = $(window).height();
-        // scrollToVideoPhotoPosition = videoPhotoPosition - winHeight;
-        // scrollToVideoPhotoPosition = videoPhoto.offset().top - $(window).height();
-
-        // $(window).on("scroll", function() {
-        //   if (navbarOffsetTop - ($("body").scrollTop() || $("html").scrollTop()) <= 0) {
-        //     navbar.addClass("fixed");
-        //   }
-        // });
-
-        //  videoPhotoOffsetTop = videoPhoto.offset().top;
-        // $(window).on("scroll", function() {
-        //   if (videoPhotoOffsetTop - ($("body").scrollTop() || $("html").scrollTop()) <=
-        //     0) {
-        //     document.getElementById("navbar-header").innerText = "Photo";
-        //   }
-        // });
-
 
         // animation for scrolling to position on click from menu
         toPort.addEventListener(
@@ -233,9 +224,6 @@
               .animate({ padding: "25px 25px 25px 0" });
           }
         );
-
-        // init gallery
-        jQuery("#gallery").unitegallery();
       }, 500);
     }
   }
