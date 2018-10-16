@@ -61,10 +61,7 @@
 
         // init gallery
         jQuery("#gallery").unitegallery();
-
-        console.log($("#last").offsetTop);
-        console.log(infoOffsetTop);
-
+        
         // on scroll actions
         $(document).scroll(function() {
           thisScrollTop = $(this).scrollTop();
