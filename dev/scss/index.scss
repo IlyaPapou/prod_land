@@ -109,6 +109,10 @@ section {
   color: $black;
 }
 
+.make-pointer {
+  cursor: pointer;
+}
+
 @media (max-width: 768px) {
   section {
     padding: 100px 0;

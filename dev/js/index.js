@@ -61,7 +61,12 @@
 
         // init gallery
         jQuery("#gallery").unitegallery();
-        
+
+        // fix modal-open behavior
+        $(".modal").on("shown.bs.modal", function(e) {
+          $("body").addClass("modal-open");
+        });
+
         // on scroll actions
         $(document).scroll(function() {
           thisScrollTop = $(this).scrollTop();
