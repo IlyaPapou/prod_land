@@ -80,6 +80,7 @@
           }
 
           if (thisScrollTop > scrollToAnimPosition && countForAnim === 0) {
+            console.log(thisScrollTop, scrollToAnimPosition);
             $("html,body").animate(
               { scrollTop: $("#video-anim").offset().top }, 1000, "swing"
             );
@@ -104,9 +105,9 @@
             navbarHeaderById.innerText = "Photo";
           }
 
-          if (infoOffsetTop < thisScrollTop) {
-            navbarHeaderById.innerText = "Info";
-          }
+          // if (infoOffsetTop < thisScrollTop) {
+          //   navbarHeaderById.innerText = "Info";
+          // }
 
           if (navbarOffsetTop - thisScrollTop < 0) {
             navbar.addClass("fixed");
@@ -141,6 +142,7 @@
               "swing"
             );
             countForAnim = 2;
+            videoAnimById.loop = true;
           }
         }
 
@@ -156,6 +158,7 @@
               1000,
               "swing"
             );
+            videoPhotoById.loop = true;
             countForPhoto = 2;
           }
         }
